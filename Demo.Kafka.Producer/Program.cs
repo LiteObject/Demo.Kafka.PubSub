@@ -11,13 +11,16 @@ namespace Demo.Kafka.Producer
     {
         static async Task Main()
         {
+            Console.Title = "Kafka Message Producer/Publisher";
+
             var topics = new[] { "test_mh" };
 
-            for (var i = 0; i < 1000; i++)
+            for (var i = 1; i <= 1000; i++)
             {
                 var u = new User { Uuid = Guid.NewGuid(), Id = i, Name = $"My Name {i}", Email = $"test_{i}@test.com" };
+                Console.WriteLine($"Publishing message {i}");
                 await Publisher(topics[0], u);
-                await Task.Delay(1000);
+                // await Task.Delay(1000);
             }
 
             Console.WriteLine("\n\nCompleted. Press any key to exit.");

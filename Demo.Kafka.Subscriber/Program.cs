@@ -9,6 +9,8 @@
     {
         static async Task Main()
         {
+            Console.Title = $"Kafka Message Subscriber/Consumer {DateTime.Now}";
+
             var topics = new[] { "test_mh" };
             await Subscriber(topics, Console.WriteLine);
 
@@ -20,9 +22,9 @@
             var config = new ConsumerConfig
             {
                 BootstrapServers = "localhost:9092",
-                GroupId = "test-app",
-                AutoOffsetReset = AutoOffsetReset.Earliest,
-                EnableAutoCommit = false
+                GroupId = "test-app-consumer",                
+                AutoOffsetReset = AutoOffsetReset.Latest,
+                EnableAutoCommit = true
             };
 
             using (var consumer = new ConsumerBuilder<Ignore, string>(config).Build())
@@ -40,9 +42,11 @@
                 {
                     while (true)
                     {
+                        Task.Delay(10000);
                         var consumeResult = consumer.Consume(cts.Token);
                         // var user = JsonSerializer.Deserialize<User>(consumeResult.Message.Value);
-                        message(consumeResult.Message.Value);
+                        message(consumeResult.Message.Value); 
+                        consumer.Commit(consumeResult);
                     }
                 }
                 catch (Exception e)
