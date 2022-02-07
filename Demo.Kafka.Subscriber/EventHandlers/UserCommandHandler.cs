@@ -1,4 +1,4 @@
-﻿namespace Demo.Kafka.Subscriber.EventHandlers
+﻿namespace Demo.Kafka.Subscriber.One.EventHandlers
 {
     using System;
     using System.Threading;

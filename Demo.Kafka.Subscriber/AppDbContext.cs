@@ -1,7 +1,7 @@
 ﻿using Demo.Kafka.ClassLibrary.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Demo.Kafka.Subscriber
+namespace Demo.Kafka.Subscriber.One
 {
     public class AppDbContext : DbContext
     {

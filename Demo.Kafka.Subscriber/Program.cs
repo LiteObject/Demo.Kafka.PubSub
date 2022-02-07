@@ -1,4 +1,4 @@
-﻿namespace Demo.Kafka.Subscriber
+﻿namespace Demo.Kafka.Subscriber.One
 {
     using System;
     using System.Threading;
@@ -16,13 +16,13 @@
 
             Console.WriteLine("\n\nCompleted. Press any key to exit.");
         }
-        
+
         static Task<Task> Subscriber(string[] topics, Action<string> message)
         {
             var config = new ConsumerConfig
             {
                 BootstrapServers = "localhost:9092",
-                GroupId = "test-app-consumer",                
+                GroupId = "test-app-consumer",
                 AutoOffsetReset = AutoOffsetReset.Latest,
                 EnableAutoCommit = true
             };
@@ -45,7 +45,7 @@
                         Task.Delay(10000);
                         var consumeResult = consumer.Consume(cts.Token);
                         // var user = JsonSerializer.Deserialize<User>(consumeResult.Message.Value);
-                        message(consumeResult.Message.Value); 
+                        message(consumeResult.Message.Value);
                         consumer.Commit(consumeResult);
                     }
                 }
